@@ -1,17 +1,22 @@
-import { useCurrentUser } from '@/react/hooks/currentUser'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useCurrentUser } from '@/react/hooks/currentUser'
 
 type Props = {}
 
 // type State = {}
 
 export const Index: React.FC<Props> = () => {
-  const { currentUser } = useCurrentUser()
-  if (!currentUser) return <></>
+  const { user } = useCurrentUser()
+
   return (
     <>
-      <Link to="/chat">Go to chat</Link>
+      {user ? <p>ログイン中</p> : (
+        <>
+          <Link to="/sign_up">sign up</Link>
+          <Link to="/sign_in">sign in</Link>
+        </>
+      )}
     </>
   )
 }

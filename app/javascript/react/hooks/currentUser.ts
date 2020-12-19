@@ -1,8 +1,17 @@
-import { useCurrentUserQuery } from '../graphql'
+import firebase from '@/react/firebase/firebaseInit'
+import { useState } from 'react'
 
 export const useCurrentUser = () => {
-  const { data, loading } = useCurrentUserQuery()
-  const currentUser = data?.currentUser
+  const [user, setUser] = useState<firebase.User | null>(null)
 
-  return { currentUser, loading }
+  firebase.auth().onAuthStateChanged(user => {
+    console.log('called')
+    if (user) {
+      setUser(user)
+    } else {
+      setUser(null)
+    }
+  })
+
+  return { user }
 }

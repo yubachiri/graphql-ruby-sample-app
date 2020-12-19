@@ -1,7 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { Chat } from '../pages/Chat'
 import { Index } from '../pages/Index'
+import { SignIn } from '@/react/pages/SignIn'
+import { SignUp } from '@/react/pages/SignUp'
 
 type Props = {}
 
@@ -10,8 +11,11 @@ type Props = {}
 export const Routes: React.FC<Props> = () => {
   return (
     <Switch>
-      <Route exact path="/chat">
-        <Chat />
+      <Route exact path="/sign_in">
+        <SignIn />
+      </Route>
+      <Route exact path="/sign_up">
+        <SignUp />
       </Route>
       <Route path="/">
         <Index />

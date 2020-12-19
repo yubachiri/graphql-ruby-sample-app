@@ -7,24 +7,25 @@ type Props = {}
 // type State = {}
 
 export const Menu: React.FC<Props> = ({ children }) => {
-  const { currentUser } = useCurrentUser()
+  const { user } = useCurrentUser()
+
   return (
     <>
-      {currentUser && (
+      {user && (
         <ul className="flex items-center justify-end p-6 bg-teal-500">
           <li className="mr-6">
-            <Link to="/chat" className="text-white hover:text-yellow-800">
-              {currentUser.email}
+            <Link to="/">
+              Logo
             </Link>
           </li>
           <li>
-            <a href="/users/sign_out" data-method="delete">
+            <a href="#">
               Sign out
             </a>
           </li>
         </ul>
       )}
-      {!currentUser && (
+      {!user && (
         <ul className="flex items-center justify-end p-6 bg-teal-500">
           <li className="mr-6">
             <a href="/users/sign_in">Sign in</a>
@@ -35,7 +36,7 @@ export const Menu: React.FC<Props> = ({ children }) => {
         </ul>
       )}
       {children}
-      {!currentUser && <div>Please sign in</div>}
+      {!user && <div>Please sign in</div>}
     </>
   )
 }
