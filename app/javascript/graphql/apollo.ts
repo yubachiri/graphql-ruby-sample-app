@@ -7,7 +7,8 @@ import {
 import { onError } from '@apollo/client/link/error'
 import { useMemo } from 'react'
 
-const { GRAPHQL_BASE_URL } = process.env
+const GRAPHQL_BASE_URL = 'http://localhost:3000/graphql'
+const API_KEY = 'dosukoi'
 
 export const initializeApollo = (token: string) => {
   return new ApolloClient({
@@ -30,9 +31,10 @@ export const initializeApollo = (token: string) => {
         return forward(operation)
       }),
       new HttpLink({
-        uri: GRAPHQL_BASE_URL + '/graphql',
+        uri: GRAPHQL_BASE_URL,
         headers: {
-          authorization: token ? `Bearer ${token}` : ''
+          authorization: token ? `Bearer ${token}` : '',
+          'X-API-KEY': API_KEY
         }
       }),
     ]),

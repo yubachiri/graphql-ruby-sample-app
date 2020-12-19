@@ -11,7 +11,12 @@ export const Index: React.FC<Props> = () => {
 
   return (
     <>
-      {user ? <p>ログイン中</p> : (
+      {user ? (
+        <>
+          <p>ログイン中</p>
+          <Link to='/user'>ユーザー詳細</Link>
+        </>
+      ) : (
         <>
           <Link to="/sign_up">sign up</Link>
           <Link to="/sign_in">sign in</Link>

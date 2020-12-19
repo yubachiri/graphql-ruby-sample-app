@@ -118,6 +118,7 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    jwt (2.2.2)
     launchy (2.5.0)
       addressable (~> 2.7)
     letter_opener (1.7.0)
@@ -309,6 +310,7 @@ DEPENDENCIES
   graphql-batch
   guard
   guard-rspec
+  jwt
   letter_opener
   letter_opener_web
   listen (~> 3.2)

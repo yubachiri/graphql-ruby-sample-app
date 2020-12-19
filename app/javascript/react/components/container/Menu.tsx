@@ -28,10 +28,10 @@ export const Menu: React.FC<Props> = ({ children }) => {
       {!user && (
         <ul className="flex items-center justify-end p-6 bg-teal-500">
           <li className="mr-6">
-            <a href="/users/sign_in">Sign in</a>
+            <Link to="/sign_in">Sign in</Link>
           </li>
           <li>
-            <a href="/users/sign_up">Sign up</a>
+            <Link to="/sign_up">Sign up</Link>
           </li>
         </ul>
       )}

@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Index } from '../pages/Index'
 import { SignIn } from '@/react/pages/SignIn'
 import { SignUp } from '@/react/pages/SignUp'
+import { ShowUser } from '@/react/pages/ShowUser'
 
 type Props = {}
 
@@ -16,6 +17,9 @@ export const Routes: React.FC<Props> = () => {
       </Route>
       <Route exact path="/sign_up">
         <SignUp />
+      </Route>
+      <Route exact path="/user">
+        <ShowUser />
       </Route>
       <Route path="/">
         <Index />

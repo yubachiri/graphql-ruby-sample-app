@@ -16,6 +16,9 @@ module Secured
     end
   end
 
+  # TODO:
+  #  check email_verified
+  #  check exp
   def auth_token
     @auth_token ||= JWT.decode(http_token, nil,
                                true, # Verify the signature of this token
@@ -30,7 +33,6 @@ module Secured
       cert = OpenSSL::X509::Certificate.new(signing_input)
       cert.public_key
     end
-    # TODO: このへんでUserつくる？
   rescue JWT::VerificationError, JWT::DecodeError
     [{}]
   end
@@ -40,8 +42,7 @@ module Secured
   end
 
   def current_user
-    # return nil if user_id.blank?
-    # @current_user ||= User.find_by(identity_params)
+    # @current_user ||= User.joins(:identity).merge(Identity.find_by(identity_params))
   end
 
   def user_signed_in?
