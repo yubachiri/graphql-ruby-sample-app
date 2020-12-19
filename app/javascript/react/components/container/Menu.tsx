@@ -7,7 +7,7 @@ type Props = {}
 // type State = {}
 
 export const Menu: React.FC<Props> = ({ children }) => {
-  const { user } = useCurrentUser()
+  const { user, logout } = useCurrentUser()
 
   return (
     <>
@@ -19,9 +19,9 @@ export const Menu: React.FC<Props> = ({ children }) => {
             </Link>
           </li>
           <li>
-            <a href="#">
+            <button onClick={logout}>
               Sign out
-            </a>
+            </button>
           </li>
         </ul>
       )}

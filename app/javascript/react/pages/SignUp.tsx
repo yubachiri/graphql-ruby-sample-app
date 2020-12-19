@@ -15,7 +15,6 @@ export const SignUp: React.FC<Props> = () => {
     setLoading(true)
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => {
-        console.log(user)
         setLoading(false)
       })
       .catch(error => {
