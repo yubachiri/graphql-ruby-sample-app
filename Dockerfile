@@ -14,6 +14,10 @@ COPY --from=node /usr/local/bin/node /usr/local/bin/
 RUN ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
     && ln -s /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg
 
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-
 WORKDIR /usr/src/app
+
+COPY Gemfile /usr/src/app/Gemfile
+COPY Gemfile.lock /usr/src/app/Gemfile.lock
+RUN bundle install
+
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
