@@ -12,13 +12,6 @@ generates:
       withHooks: true
       withRefetchFn: true
       gqlImport: 'graphql-tag'
-  app/javascript/vue/graphql.ts:
-    plugins:
-      - typescript
-      - typescript-operations
-      - typescript-vue-apollo
-    config:
-      withCompositionFunctions: true
   ./graphql.schema.json:
     plugins:
       - 'introspection'

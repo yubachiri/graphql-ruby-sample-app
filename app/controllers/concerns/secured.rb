@@ -42,7 +42,20 @@ module Secured
   end
 
   def current_user
-    # @current_user ||= User.joins(:identity).merge(Identity.find_by(identity_params))
+    email = identity_params[:email]
+    return nil if email.nil?
+
+    identities_params = { sub: identity_params[:sub],
+                          iss: identity_params[:iss] }
+
+    @current_user ||= User.where(email: email).joins(:identities).merge(Identity.where(identities_params)).first
+
+    if @current_user.blank?
+      @current_user = User.find_or_create_by(email: email)
+      @current_user.identities.find_or_create_by(identities_params)
+    end
+
+    @current_user
   end
 
   def user_signed_in?
@@ -50,8 +63,8 @@ module Secured
   end
 
   def identity_params
-    permitted = ActionController::Parameters.new(auth_token.first).permit(:sub, :iss)
-    { sub: permitted[:sub], iss: permitted[:iss] }
+    permitted = ActionController::Parameters.new(auth_token.first).permit(:sub, :iss, :email)
+    { sub: permitted[:sub], iss: permitted[:iss], email: permitted[:email] }
   end
 
   def sign_in_provider
