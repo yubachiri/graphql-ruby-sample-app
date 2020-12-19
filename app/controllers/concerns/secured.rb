@@ -42,34 +42,15 @@ module Secured
   end
 
   def current_user
-    email = identity_params[:email]
-    return nil if email.nil?
-
-    identities_params = { sub: identity_params[:sub],
-                          iss: identity_params[:iss] }
-
-    @current_user ||= User.where(email: email).joins(:identities).merge(Identity.where(identities_params)).first
-
-    if @current_user.blank?
-      @current_user = User.find_or_create_by(email: email)
-      @current_user.identities.find_or_create_by(identities_params)
-    end
-
-    @current_user
+    return nil if user_params.nil?
+    @current_user ||= User.prepare(user_params)
   end
 
   def user_signed_in?
     current_user.present?
   end
 
-  def identity_params
-    permitted = ActionController::Parameters.new(auth_token.first).permit(:sub, :iss, :email)
-    { sub: permitted[:sub], iss: permitted[:iss], email: permitted[:email] }
-  end
-
-  def sign_in_provider
-    provider = auth_token.first.dig('firebase', 'sign_in_provider')
-    return provider if provider != 'anonymous'
-    nil
+  def user_params
+    ActionController::Parameters.new(auth_token.first).permit(:sub, :iss, :email).to_h.compact
   end
 end

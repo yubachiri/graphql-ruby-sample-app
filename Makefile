@@ -30,3 +30,7 @@ seed:
 .PHONY: test
 test:
 	docker-compose run --rm test bundle exec guard --no-bundler-warning --no-interactions
+
+.PHONY: test-all
+test-all:
+	docker-compose run --rm test bundle exec rspec
