@@ -14,5 +14,4 @@
 #  index_identities_on_user_id  (user_id)
 #
 class Identity < ApplicationRecord
-  belongs_to :user
 end

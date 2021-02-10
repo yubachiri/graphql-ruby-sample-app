@@ -1,6 +1,6 @@
 module Types
   class QueryType < Types::BaseObject
-    field :current_user, Types::Objects::UserType, null: true
+    field :current_user, Types::Objects::UserType, null: false
 
     def current_user
       context[:current_user]
@@ -14,7 +14,7 @@ module Types
       Loaders::RecordLoader.for(User).load(id)
     end
 
-    field :users, Types::Objects::UserType.connection_type, null: false
+    field :users, [Types::Objects::UserType], null: false
 
     def users(page: nil, items: nil)
       User.all

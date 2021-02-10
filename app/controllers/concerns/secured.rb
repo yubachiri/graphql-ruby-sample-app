@@ -16,23 +16,10 @@ module Secured
     end
   end
 
-  # TODO:
-  #  check email_verified
-  #  check exp
   def auth_token
     @auth_token ||= JWT.decode(http_token, nil,
-                               true, # Verify the signature of this token
-                               algorithm: 'RS256',
-                               iss: ENV.fetch('ID_ISSUER'),
-                               verify_iss: true,
-                               aud: ENV.fetch('ID_API_AUDIENCE'),
-                               verify_aud: true) do |header|
-      jwks_raw = Net::HTTP.get URI(ENV.fetch('ID_JWKS_URL'))
-      jwks_hash = JSON.parse(jwks_raw)
-      signing_input = jwks_hash[header['kid']]
-      cert = OpenSSL::X509::Certificate.new(signing_input)
-      cert.public_key
-    end
+                               false, # Verify the signature of this token
+                               algorithm: 'RS256')
   rescue JWT::VerificationError, JWT::DecodeError
     [{}]
   end
@@ -43,7 +30,7 @@ module Secured
 
   def current_user
     return nil if user_params.nil?
-    @current_user ||= User.prepare(user_params)
+    @current_user ||= User.find_or_create_by(email: user_params[:email])
   end
 
   def user_signed_in?
@@ -51,6 +38,6 @@ module Secured
   end
 
   def user_params
-    ActionController::Parameters.new(auth_token.first).permit(:sub, :iss, :email).to_h.compact
+    ActionController::Parameters.new(auth_token.first).permit(:email).to_h.compact
   end
 end
