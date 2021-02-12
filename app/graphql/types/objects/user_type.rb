@@ -11,9 +11,4 @@
 class Types::Objects::UserType < Types::BaseObject
   field :id, ID, null: false
   field :email, String, null: true
-  field :name, String, null: true
-
-  def email
-    object.id + object.email
-  end
 end
