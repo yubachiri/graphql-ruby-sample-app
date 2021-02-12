@@ -75,17 +75,6 @@ services:
       - RAILS_ENV=test
       - FIXTURE_PATH=db/fixtures/dev
     ports: []
-  pgweb:
-    image: sosedoff/pgweb
-    ports:
-      - "8082:8081"
-    environment:
-      - DATABASE_URL=postgres://postgres:password@app_db_1:5432/postgres?sslmode=disable
-    links:
-      - db
-    restart: always
-    depends_on:
-      - db
 
 volumes:
   db:
