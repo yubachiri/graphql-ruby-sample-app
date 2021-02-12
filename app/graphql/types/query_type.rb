@@ -16,7 +16,7 @@ module Types
 
     field :users, [Types::Objects::UserType], null: false
 
-    def users(page: nil, items: nil)
+    def users
       User.all
     end
   end
