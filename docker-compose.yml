@@ -41,12 +41,6 @@ services:
     image: busybox
     volumes:
       - db:/var/lib/postgresql/data:delegated
-  generator:
-    <<: *app
-    ports: []
-    command: ['sh', '-c', 'yarn generate --watch "app/javascript/graphql/**"']
-    depends_on:
-      - app
   webpacker:
     <<: *app
     ports:
